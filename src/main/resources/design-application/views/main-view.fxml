@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.ecommerce.controllers.AdminDashboardController"
+            prefHeight="800.0" prefWidth="1400.0"
+            stylesheets="@styles/admin.css">
+
+    <!-- Left Sidebar Navigation -->
+    <left>
+        <VBox prefWidth="220" styleClass="sidebar">
+            <padding>
+                <Insets top="20" left="10" right="10" bottom="20" />
+            </padding>
+
+            <!-- Logo/Brand -->
+            <VBox alignment="CENTER" spacing="5" styleClass="brand-section">
+                <Label text="🛍️" style="-fx-font-size: 36;" />
+                <Label text="E-Commerce" style="-fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: white;" />
+                <Label text="Admin Panel" style="-fx-font-size: 12; -fx-text-fill: rgba(255,255,255,0.7);" />
+                <padding>
+                    <Insets bottom="30" />
+                </padding>
+            </VBox>
+
+            <!-- Navigation Buttons -->
+            <VBox spacing="8">
+                <Button fx:id="dashboardBtn" text="📊  Dashboard" onAction="#showDashboard"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 20; -fx-background-radius: 5; -fx-cursor: hand; -fx-alignment: CENTER_LEFT;"
+                        maxWidth="Infinity" />
+                <Button fx:id="productsBtn" text="📦  Products" onAction="#showProducts"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 20; -fx-background-radius: 5; -fx-cursor: hand; -fx-alignment: CENTER_LEFT;"
+                        maxWidth="Infinity" />
+                <Button fx:id="ordersBtn" text="🛒  Orders" onAction="#showOrders"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 20; -fx-background-radius: 5; -fx-cursor: hand; -fx-alignment: CENTER_LEFT;"
+                        maxWidth="Infinity" />
+                <Button fx:id="usersBtn" text="👥  Users" onAction="#showUsers"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 20; -fx-background-radius: 5; -fx-cursor: hand; -fx-alignment: CENTER_LEFT;"
+                        maxWidth="Infinity" />
+                <Button fx:id="inventoryBtn" text="📋  Inventory" onAction="#showInventory"
+                        style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 20; -fx-background-radius: 5; -fx-cursor: hand; -fx-alignment: CENTER_LEFT;"
+                        maxWidth="Infinity" />
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS" />
+
+            <!-- Logout Button at Bottom -->
+            <Button fx:id="logoutButton" text="🚪  Logout" onAction="#handleLogout"
+                    style="-fx-background-color: rgba(231,76,60,0.8); -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 12 20; -fx-background-radius: 5; -fx-cursor: hand; -fx-alignment: CENTER_LEFT;"
+                    maxWidth="Infinity" />
+        </VBox>
+    </left>
+
+    <!-- Main Content Area -->
+    <center>
+        <VBox>
+            <!-- Top Header Bar -->
+            <HBox styleClass="header-bar" spacing="20" alignment="CENTER_LEFT">
+                <padding>
+                    <Insets top="15" left="20" right="20" bottom="15" />
+                </padding>
+                <Label fx:id="adminNameLabel" text="Welcome, Admin" 
+                       style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+                <Region HBox.hgrow="ALWAYS" />
+                <Label fx:id="statusLabel" text="Ready" 
+                       style="-fx-font-size: 12; -fx-text-fill: #27ae60;" />
+            </HBox>
+
+            <!-- Dynamic Content Area -->
+            <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS" 
+                       style="-fx-background-color: #f5f6fa;" />
+        </VBox>
+    </center>
+
+</BorderPane>

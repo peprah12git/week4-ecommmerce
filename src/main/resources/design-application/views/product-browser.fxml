@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.ecommerce.controllers.ProductBrowserController"
+      prefHeight="750.0" prefWidth="1180.0" spacing="15"
+      stylesheets="@styles/client.css">
+
+    <padding>
+        <Insets top="15" left="15" right="15" bottom="15" />
+    </padding>
+
+    <!-- Search and Filter Bar -->
+    <HBox spacing="10" alignment="CENTER_LEFT" styleClass="search-bar">
+        <TextField fx:id="searchField" promptText="Search products..." prefWidth="300" />
+        <ComboBox fx:id="categoryFilter" promptText="All Categories" prefWidth="150" />
+        <Region HBox.hgrow="ALWAYS" />
+        <Button text="🔍 Search" style="-fx-font-size: 12; -fx-padding: 8;" onAction="#handleSearch" />
+        <Button text="Reset" style="-fx-font-size: 12; -fx-padding: 8;" onAction="#resetFilters" />
+    </HBox>
+
+    <!-- Products Display -->
+    <VBox VBox.vgrow="ALWAYS">
+        <Label text="Available Products" style="-fx-font-size: 16; -fx-font-weight: bold;" />
+        <ScrollPane prefHeight="600" style="-fx-fit-to-width: true;">
+            <GridPane fx:id="productsGrid" hgap="15" vgap="15" style="-fx-padding: 10;">
+                <columnConstraints>
+                    <ColumnConstraints percentWidth="25" />
+                    <ColumnConstraints percentWidth="25" />
+                    <ColumnConstraints percentWidth="25" />
+                    <ColumnConstraints percentWidth="25" />
+                </columnConstraints>
+            </GridPane>
+        </ScrollPane>
+    </VBox>
+
+</VBox>
