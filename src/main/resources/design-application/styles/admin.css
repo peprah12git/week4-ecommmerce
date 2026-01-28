@@ -1,0 +1,248 @@
+/* Admin Dashboard Styles */
+
+/* Sidebar Styles */
+.sidebar {
+    -fx-background-color: linear-gradient(to bottom, #2c3e50, #3498db);
+}
+
+.sidebar .button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.brand-section {
+    -fx-border-color: rgba(255, 255, 255, 0.1);
+    -fx-border-width: 0 0 1 0;
+}
+
+/* Header Bar */
+.header-bar {
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 0, 2);
+}
+
+/* Content Area */
+.content-area {
+    -fx-background-color: #f5f6fa;
+}
+
+/* Cards */
+.stat-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 3);
+    -fx-padding: 20;
+}
+
+.stat-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.4), 15, 0, 0, 5);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+/* Tables */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 5, 0, 0, 2);
+}
+
+.table-view .column-header {
+    -fx-background-color: #f8f9fa;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-text-fill: #2c3e50;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #f8f9fa;
+}
+
+.table-row-cell {
+    -fx-background-color: white;
+    -fx-border-color: #f0f0f0;
+    -fx-border-width: 0 0 1 0;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #f1f3f5;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #e3f2fd;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: #2c3e50;
+}
+
+/* Buttons */
+.primary-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.primary-button:hover {
+    -fx-background-color: #2980b9;
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+.success-button {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.success-button:hover {
+    -fx-background-color: #229954;
+}
+
+.danger-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.danger-button:hover {
+    -fx-background-color: #c0392b;
+}
+
+.warning-button {
+    -fx-background-color: #f39c12;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+}
+
+.warning-button:hover {
+    -fx-background-color: #d68910;
+}
+
+/* Form Controls */
+.text-field, .text-area, .combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #ddd;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 8;
+}
+
+.text-field:focused, .text-area:focused, .combo-box:focused {
+    -fx-border-color: #3498db;
+    -fx-effect: dropshadow(gaussian, rgba(52, 152, 219, 0.3), 5, 0, 0, 0);
+}
+
+/* Labels */
+.section-title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.card-title {
+    -fx-font-size: 14px;
+    -fx-text-fill: #7f8c8d;
+}
+
+.card-value {
+    -fx-font-size: 28px;
+    -fx-font-weight: bold;
+}
+
+/* Scroll Pane */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Dialog Pane */
+.dialog-pane {
+    -fx-background-color: white;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #3498db;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+/* Check Box */
+.check-box {
+    -fx-text-fill: #2c3e50;
+}
+
+.check-box .box {
+    -fx-background-color: white;
+    -fx-border-color: #bdc3c7;
+    -fx-border-radius: 3;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #3498db;
+    -fx-border-color: #3498db;
+}
+
+.check-box:selected .mark {
+    -fx-background-color: white;
+}
+
+/* Status Colors */
+.status-pending {
+    -fx-text-fill: #e67e22;
+    -fx-font-weight: bold;
+}
+
+.status-processing {
+    -fx-text-fill: #3498db;
+    -fx-font-weight: bold;
+}
+
+.status-shipped {
+    -fx-text-fill: #9b59b6;
+    -fx-font-weight: bold;
+}
+
+.status-delivered {
+    -fx-text-fill: #27ae60;
+    -fx-font-weight: bold;
+}
+
+.status-cancelled {
+    -fx-text-fill: #e74c3c;
+    -fx-font-weight: bold;
+}
+
+/* Low Stock Warning */
+.low-stock {
+    -fx-text-fill: #e74c3c;
+    -fx-font-weight: bold;
+}
+
+.medium-stock {
+    -fx-text-fill: #e67e22;
+    -fx-font-weight: bold;
+}
+
+.in-stock {
+    -fx-text-fill: #27ae60;
+    -fx-font-weight: bold;
+}

@@ -1,0 +1,251 @@
+/* Root styling */
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #4facfe 0%, #00f2fe 100%);
+    -fx-font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+/* Main container */
+.main-container {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.25), 30, 0, 0, 15);
+}
+
+/* Title styling */
+.title-label {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a2e;
+    -fx-padding: 0 0 5 0;
+}
+
+/* Subtitle styling */
+.subtitle-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6c757d;
+    -fx-padding: 0 0 15 0;
+}
+
+/* Login box styling */
+.login-box {
+    -fx-background-color: transparent;
+    -fx-padding: 10px 0 0 0;
+    -fx-spacing: 18px;
+}
+
+/* Field label */
+.field-label {
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #495057;
+}
+
+/* Divider text */
+.divider-text {
+    -fx-font-size: 12px;
+    -fx-text-fill: #adb5bd;
+    -fx-font-weight: bold;
+}
+
+/* Section title */
+.section-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #495057;
+}
+
+/* Input fields styling */
+.input-field {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 12px;
+    -fx-border-color: #e9ecef;
+    -fx-border-radius: 12px;
+    -fx-border-width: 2px;
+    -fx-padding: 12px 18px;
+    -fx-font-size: 15px;
+    -fx-text-fill: #212529;
+    -fx-prompt-text-fill: #adb5bd;
+}
+
+.input-field:focused {
+    -fx-border-color: #4facfe;
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(79, 172, 254, 0.25), 12, 0, 0, 0);
+}
+
+.input-field:hover {
+    -fx-border-color: #ced4da;
+    -fx-background-color: white;
+}
+
+/* Text fields styling (fallback) */
+.text-field, .password-field {
+    -fx-background-color: #f8f9fa;
+    -fx-background-radius: 12px;
+    -fx-border-color: #e9ecef;
+    -fx-border-radius: 12px;
+    -fx-border-width: 2px;
+    -fx-padding: 12px 18px;
+    -fx-font-size: 15px;
+    -fx-text-fill: #212529;
+    -fx-prompt-text-fill: #adb5bd;
+}
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #4facfe;
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+    -fx-effect: dropshadow(gaussian, rgba(79, 172, 254, 0.25), 12, 0, 0, 0);
+}
+
+.text-field:hover, .password-field:hover {
+    -fx-border-color: #ced4da;
+    -fx-background-color: white;
+}
+
+/* Primary button styling */
+.primary-button {
+    -fx-background-color: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    -fx-text-fill: white;
+    -fx-background-radius: 12px;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 14px 24px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(79, 172, 254, 0.5), 12, 0, 0, 6);
+}
+
+.primary-button:hover {
+    -fx-background-color: linear-gradient(to right, #3d9be0 0%, #00d4e0 100%);
+    -fx-scale-y: 1.02;
+    -fx-scale-x: 1.02;
+    -fx-effect: dropshadow(gaussian, rgba(79, 172, 254, 0.7), 16, 0, 0, 8);
+}
+
+.primary-button:pressed {
+    -fx-background-color: linear-gradient(to right, #3589c9 0%, #00b8c5 100%);
+    -fx-scale-y: 0.98;
+    -fx-scale-x: 0.98;
+}
+
+/* Button styling (default) */
+.button {
+    -fx-background-color: linear-gradient(to right, #4facfe 0%, #00f2fe 100%);
+    -fx-text-fill: white;
+    -fx-background-radius: 12px;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 14px 24px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(79, 172, 254, 0.4), 10, 0, 0, 5);
+}
+
+.button:hover {
+    -fx-background-color: linear-gradient(to right, #3d9be0 0%, #00d4e0 100%);
+    -fx-scale-y: 1.02;
+    -fx-scale-x: 1.02;
+    -fx-effect: dropshadow(gaussian, rgba(79, 172, 254, 0.6), 14, 0, 0, 7);
+}
+
+.button:pressed {
+    -fx-background-color: linear-gradient(to right, #3589c9 0%, #00b8c5 100%);
+    -fx-scale-y: 0.98;
+    -fx-scale-x: 0.98;
+}
+
+/* Guest button styling */
+.guest-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #495057;
+    -fx-background-radius: 12px;
+    -fx-border-color: #ced4da;
+    -fx-border-radius: 12px;
+    -fx-border-width: 2px;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-padding: 14px 24px;
+    -fx-cursor: hand;
+}
+
+.guest-button:hover {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #adb5bd;
+    -fx-scale-y: 1.02;
+    -fx-scale-x: 1.02;
+}
+
+.guest-button:pressed {
+    -fx-background-color: #e9ecef;
+    -fx-scale-y: 0.98;
+    -fx-scale-x: 0.98;
+}
+
+/* Register text */
+.register-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6c757d;
+}
+
+/* Register button (link style) */
+.register-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4facfe;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 5px 10px;
+    -fx-cursor: hand;
+    -fx-underline: true;
+}
+
+.register-button:hover {
+    -fx-text-fill: #00d4e0;
+    -fx-scale-x: 1.0;
+    -fx-scale-y: 1.0;
+}
+
+.register-button:pressed {
+    -fx-text-fill: #0099aa;
+}
+
+/* Hyperlink styling */
+.hyperlink {
+    -fx-text-fill: #667eea;
+    -fx-font-size: 12px;
+    -fx-underline: true;
+    -fx-cursor: hand;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #764ba2;
+}
+
+.hyperlink:visited {
+    -fx-text-fill: #667eea;
+}
+
+/* Separator styling */
+.separator .line {
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 1px;
+}
+
+/* Error label styling */
+.error-label {
+    -fx-text-fill: #e74c3c;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+    -fx-background-color: #fadbd8;
+    -fx-background-radius: 6px;
+}
+
+/* Success label styling */
+.success-label {
+    -fx-text-fill: #27ae60;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+    -fx-background-color: #d4edda;
+    -fx-background-radius: 6px;
+}
