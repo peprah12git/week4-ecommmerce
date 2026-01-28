@@ -159,14 +159,14 @@ public class ClientController {
         
         try {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
-                com.ecommerce.Main.class.getResource("/com/ecommerce/checkout.fxml"));
+                com.Main.class.getResource("/com/ecommerce/checkout.fxml"));
             javafx.scene.Parent root = loader.load();
             
             CheckoutController controller = loader.getController();
             // Pass cart items to checkout
-            List<com.ecommerce.models.CartItem> checkoutItems = new java.util.ArrayList<>();
+            List<com.models.CartItem> checkoutItems = new java.util.ArrayList<>();
             for (CartItem item : cartItems) {
-                com.ecommerce.models.CartItem cartItem = new com.ecommerce.models.CartItem(
+                com.models.CartItem cartItem = new com.models.CartItem(
                     item.getProductId(), item.getProductName(), item.getPrice(), item.getQuantity(), "");
                 checkoutItems.add(cartItem);
             }
