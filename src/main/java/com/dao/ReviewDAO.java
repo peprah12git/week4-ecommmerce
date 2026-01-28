@@ -1,7 +1,7 @@
 package com.dao;
 
-import com.ecommerce.config.DatabaseConnection;
-import com.ecommerce.models.Review;
+import com.config.DatabaseConnection;
+import com.models.Review;
 
 import java.sql.*;
 import java.util.ArrayList;

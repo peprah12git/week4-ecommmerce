@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.ecommerce.controllers.CheckoutController"
+      fx:controller="com.controllers.CheckoutController"
       prefHeight="750.0" prefWidth="1180.0" spacing="20">
 
     <padding>
