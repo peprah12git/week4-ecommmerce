@@ -70,7 +70,8 @@ public class LoginController {
 
     @FXML
     private void handleGuest() {
-        userService.setCurrentUser(new User(0, "Guest", "guest@example.com", "", "", "", "guest"));
+        User guestUser = new User(0, "Guest", "guest@example.com", "", "", "", "guest");
+        userService.setCurrentUser(guestUser);
         mainHost.onGuest();
     }
 

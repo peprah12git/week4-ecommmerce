@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.ecommerce.controllers.ClientModernController"
+            fx:controller="com.controllers.ClientModernController"
             prefHeight="800" prefWidth="1200" style="-fx-background-color: #f5f7fa;">
 
     <!-- Top Navigation Bar -->
