@@ -1,21 +1,25 @@
 package com.dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import com.config.DatabaseConnection;
 import com.models.Product;
 import com.util.PerformanceMonitor;
 
-import java.sql.*;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-
-/**
- * Production-optimized ProductDAO - matches baseline performance
- */
 public class ProductionOptimizedDAO {
     private static final ProductionOptimizedDAO instance = new ProductionOptimizedDAO();
     private final Map<Integer, Product> productCache = new ConcurrentHashMap<>();
     private final Map<String, List<Product>> searchCache = new ConcurrentHashMap<>();
     private final PerformanceMonitor monitor = PerformanceMonitor.getInstance();
+    private long lastCacheUpdate = 0;
     
     private Connection getConnection() {
         return DatabaseConnection.getInstance().getConnection();
@@ -64,14 +68,10 @@ public class ProductionOptimizedDAO {
              ResultSet rs = stmt.executeQuery()) {
             
             while (rs.next()) {
-                Product product = mapResultSetToProduct(rs);
-                products.add(product);
-                productCache.put(product.getProductId(), product);
+                products.add(mapResultSetToProduct(rs));
             }
             
-        } catch (SQLException e) {
-            // Silent
-        }
+        } catch (SQLException e) {}
         
         monitor.recordQueryTime("getAllProducts", startTime);
         return products;
@@ -92,10 +92,9 @@ public class ProductionOptimizedDAO {
             if (rs.next()) {
                 product = mapResultSetToProduct(rs);
                 productCache.put(productId, product);
+                lastCacheUpdate = System.currentTimeMillis();
             }
-        } catch (SQLException e) {
-            // Silent
-        }
+        } catch (SQLException e) {}
         
         monitor.recordQueryTime("getProductById", startTime);
         return product;
@@ -123,17 +122,24 @@ public class ProductionOptimizedDAO {
             }
             
             searchCache.put(cacheKey, products);
-        } catch (SQLException e) {
-            // Silent
-        }
+            lastCacheUpdate = System.currentTimeMillis();
+        } catch (SQLException e) {}
         
-        monitor.recordQueryTime("searchProducts", startTime);
+        //monitor.recordQueryTime("searchProducts", startTime);
         return products;
     }
 
     public void clearCache() {
         productCache.clear();
         searchCache.clear();
+        lastCacheUpdate = 0;
+    }
+
+    public Map<String, Integer> getCacheStats() {
+        Map<String, Integer> stats = new HashMap<>();
+        stats.put("productCache", productCache.size());
+        stats.put("searchCache", searchCache.size());
+        return stats;
     }
 
     private Product mapResultSetToProduct(ResultSet rs) throws SQLException {

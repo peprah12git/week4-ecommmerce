@@ -911,16 +911,9 @@ public class AdminDashboardController {
         // Performance metrics cards
         HBox metricsRow = new HBox(20);
         metricsRow.setAlignment(Pos.CENTER);
+        metricsRow.setId("metricsRow"); // Add ID for updates
         
-        // Get cache stats from ProductService
-        java.util.Map<String, Object> productStats = productService.getCacheStats();
-        
-        metricsRow.getChildren().addAll(
-            createStatCard("📦 Cached Products", String.valueOf(productStats.get("cachedProducts")), "#3498db"),
-            createStatCard("⚡ Cache Status", (boolean)productStats.get("cacheValid") ? "Active" : "Expired", "#27ae60"),
-            createStatCard("🕒 Cache Age", String.format("%.1fs", (long)productStats.get("cacheAge") / 1000.0), "#e67e22"),
-            createStatCard("💾 Total Records", String.valueOf(productService.getAllProducts().size()), "#9b59b6")
-        );
+        updateMetricsRow(metricsRow);
         
         // Button actions
         runTestBtn.setOnAction(e -> {
@@ -991,8 +984,9 @@ public class AdminDashboardController {
         Button clearCacheBtn = new Button("🗑️ Clear Cache");
         clearCacheBtn.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5; -fx-cursor: hand;");
         clearCacheBtn.setOnAction(e -> {
-            productService.getAllProducts();
-            showPerformance();
+            com.dao.ProductionOptimizedDAO.getInstance().clearCache();
+            updateMetricsRow(metricsRow);
+            showProducts(); // Refresh the products view
             updateStatus("Cache cleared and refreshed");
         });
         
@@ -1002,6 +996,17 @@ public class AdminDashboardController {
         
         container.getChildren().addAll(title, controlsRow, resultsArea, metricsRow, bottomRow);
         return container;
+    }
+    
+    private void updateMetricsRow(HBox metricsRow) {
+        java.util.Map<String, Integer> cacheStats = com.dao.ProductionOptimizedDAO.getInstance().getCacheStats();
+        
+        metricsRow.getChildren().clear();
+        metricsRow.getChildren().addAll(
+            createStatCard("📦 Product Cache", String.valueOf(cacheStats.get("productCache")), "#3498db"),
+            createStatCard("🔍 Search Cache", String.valueOf(cacheStats.get("searchCache")), "#27ae60"),
+            createStatCard("💾 Total Products", String.valueOf(productService.getAllProducts().size()), "#9b59b6")
+        );
     }
     
     private void setActiveButton(Button activeBtn) {
