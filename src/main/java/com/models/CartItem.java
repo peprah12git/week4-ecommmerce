@@ -17,7 +17,7 @@ public class CartItem {
         this.description = description;
     }
 
-    // Getters and Setters
+
     public int getProductId() {
         return productId;
     }
