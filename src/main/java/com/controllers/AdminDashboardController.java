@@ -888,63 +888,125 @@ public class AdminDashboardController {
         Label title = new Label("⚡ Performance Monitor");
         title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
         
+        // Performance test controls
+        HBox controlsRow = new HBox(15);
+        controlsRow.setAlignment(Pos.CENTER_LEFT);
+        
+        Button runTestBtn = new Button("🚀 Run Performance Test");
+        runTestBtn.setStyle("-fx-background-color: #27ae60; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12 24; -fx-background-radius: 5; -fx-cursor: hand;");
+        
+        Button downloadReportBtn = new Button("📄 Download Report");
+        downloadReportBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 12 24; -fx-background-radius: 5; -fx-cursor: hand;");
+        downloadReportBtn.setDisable(true);
+        
+        controlsRow.getChildren().addAll(runTestBtn, downloadReportBtn);
+        
+        // Results area
+        TextArea resultsArea = new TextArea();
+        resultsArea.setEditable(false);
+        resultsArea.setPrefRowCount(15);
+        resultsArea.setStyle("-fx-font-family: 'Courier New'; -fx-font-size: 12px;");
+        resultsArea.setText("Click 'Run Performance Test' to start performance analysis...\n\nThis will:\n• Test database query performance\n• Compare pre/post optimization results\n• Generate detailed performance report\n• Show measurable improvements from caching and indexing");
+        
         // Performance metrics cards
         HBox metricsRow = new HBox(20);
         metricsRow.setAlignment(Pos.CENTER);
+        metricsRow.setId("metricsRow"); // Add ID for updates
         
-        // Get cache stats from ProductService
-        java.util.Map<String, Object> productStats = productService.getCacheStats();
+        updateMetricsRow(metricsRow);
         
-        metricsRow.getChildren().addAll(
-            createStatCard("📦 Cached Products", String.valueOf(productStats.get("cachedProducts")), "#3498db"),
-            createStatCard("⚡ Cache Status", (boolean)productStats.get("cacheValid") ? "Active" : "Expired", "#27ae60"),
-            createStatCard("🕒 Cache Age", String.format("%.1fs", (long)productStats.get("cacheAge") / 1000.0), "#e67e22"),
-            createStatCard("💾 Total Records", String.valueOf(productService.getAllProducts().size()), "#9b59b6")
-        );
+        // Button actions
+        runTestBtn.setOnAction(e -> {
+            runTestBtn.setDisable(true);
+            resultsArea.setText("Running PRODUCTION performance benchmark...\n\n");
+            
+            // Run production benchmark in background thread
+            new Thread(() -> {
+                try {
+                    com.util.ProperBenchmark benchmark = new com.util.ProperBenchmark();
+                    
+                    javafx.application.Platform.runLater(() -> {
+                        resultsArea.appendText("Using ProductionOptimizedDAO for testing...\n");
+                        resultsArea.appendText("Sample size: 50 iterations per test\n");
+                        resultsArea.appendText("Warm-up: 10 iterations\n\n");
+                    });
+                    
+                    // Capture console output
+                    java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
+                    java.io.PrintStream originalOut = System.out;
+                    System.setOut(new java.io.PrintStream(baos));
+                    
+                    benchmark.runBenchmark();
+                    
+                    // Restore original output
+                    System.setOut(originalOut);
+                    String benchmarkOutput = baos.toString();
+                    
+                    javafx.application.Platform.runLater(() -> {
+                        resultsArea.setText(benchmarkOutput);
+                        resultsArea.appendText("\n=== PRODUCTION BENCHMARK COMPLETED ===\n");
+                        resultsArea.appendText("Results show optimized SQL with proper indexing.\n");
+                        resultsArea.appendText("Click 'Download Report' for detailed analysis.\n");
+                        
+                        runTestBtn.setDisable(false);
+                        downloadReportBtn.setDisable(false);
+                        updateStatus("Production performance benchmark completed");
+                    });
+                    
+                } catch (Exception ex) {
+                    javafx.application.Platform.runLater(() -> {
+                        resultsArea.appendText("\nERROR: " + ex.getMessage() + "\n");
+                        runTestBtn.setDisable(false);
+                    });
+                }
+            }).start();
+        });
         
-        // Performance actions
-        HBox actionsRow = new HBox(15);
-        actionsRow.setAlignment(Pos.CENTER_LEFT);
+        downloadReportBtn.setOnAction(e -> {
+            try {
+                com.util.CorrectedPerformanceReport.generateCorrectedReport();
+                showAlert(Alert.AlertType.INFORMATION, "Corrected Report Generated", 
+                    "Proper performance report has been generated with statistical analysis.\n\n" +
+                    "The corrected report includes:\n" +
+                    "• Proper benchmarking methodology (50+ samples)\n" +
+                    "• Statistical significance testing\n" +
+                    "• Mean ± Standard Deviation reporting\n" +
+                    "• Separate cache hit/miss analysis\n" +
+                    "• SQL optimization recommendations\n" +
+                    "• Confidence intervals and p-values");
+                updateStatus("Corrected performance report generated successfully");
+            } catch (Exception ex) {
+                showAlert(Alert.AlertType.ERROR, "Error", "Failed to generate corrected report: " + ex.getMessage());
+            }
+        });
         
+        // Clear cache button
         Button clearCacheBtn = new Button("🗑️ Clear Cache");
         clearCacheBtn.setStyle("-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5; -fx-cursor: hand;");
         clearCacheBtn.setOnAction(e -> {
-            // Force cache refresh by calling getAllProducts
-            productService.getAllProducts();
-            showPerformance(); // Refresh view
+            com.dao.ProductionOptimizedDAO.getInstance().clearCache();
+            updateMetricsRow(metricsRow);
+            showProducts(); // Refresh the products view
             updateStatus("Cache cleared and refreshed");
         });
         
-        Button refreshBtn = new Button("🔄 Refresh Stats");
-        refreshBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 5; -fx-cursor: hand;");
-        refreshBtn.setOnAction(e -> {
-            showPerformance(); // Refresh view
-            updateStatus("Performance stats refreshed");
-        });
+        HBox bottomRow = new HBox(15);
+        bottomRow.setAlignment(Pos.CENTER_LEFT);
+        bottomRow.getChildren().add(clearCacheBtn);
         
-        actionsRow.getChildren().addAll(clearCacheBtn, refreshBtn);
-        
-        // System info
-        VBox systemInfo = new VBox(10);
-        systemInfo.setStyle("-fx-background-color: white; -fx-padding: 20; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);");
-        
-        Label systemTitle = new Label("🖥️ System Information");
-        systemTitle.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
-        
-        Runtime runtime = Runtime.getRuntime();
-        long maxMemory = runtime.maxMemory() / (1024 * 1024);
-        long totalMemory = runtime.totalMemory() / (1024 * 1024);
-        long freeMemory = runtime.freeMemory() / (1024 * 1024);
-        long usedMemory = totalMemory - freeMemory;
-        
-        Label memoryInfo = new Label(String.format("Memory: %d MB used / %d MB total / %d MB max", usedMemory, totalMemory, maxMemory));
-        Label javaInfo = new Label("Java Version: " + System.getProperty("java.version"));
-        Label osInfo = new Label("OS: " + System.getProperty("os.name") + " " + System.getProperty("os.version"));
-        
-        systemInfo.getChildren().addAll(systemTitle, memoryInfo, javaInfo, osInfo);
-        
-        container.getChildren().addAll(title, metricsRow, actionsRow, systemInfo);
+        container.getChildren().addAll(title, controlsRow, resultsArea, metricsRow, bottomRow);
         return container;
+    }
+    
+    private void updateMetricsRow(HBox metricsRow) {
+        java.util.Map<String, Integer> cacheStats = com.dao.ProductionOptimizedDAO.getInstance().getCacheStats();
+        
+        metricsRow.getChildren().clear();
+        metricsRow.getChildren().addAll(
+            createStatCard("📦 Product Cache", String.valueOf(cacheStats.get("productCache")), "#3498db"),
+            createStatCard("🔍 Search Cache", String.valueOf(cacheStats.get("searchCache")), "#27ae60"),
+            createStatCard("💾 Total Products", String.valueOf(productService.getAllProducts().size()), "#9b59b6")
+        );
     }
     
     private void setActiveButton(Button activeBtn) {
