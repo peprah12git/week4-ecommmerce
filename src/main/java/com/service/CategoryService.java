@@ -1,7 +1,7 @@
 package com.service;
 
-import com.ecommerce.dao.CategoryDAO;
-import com.ecommerce.models.Category;
+import com.dao.CategoryDAO;
+import com.models.Category;
 
 import java.util.ArrayList;
 import java.util.List;

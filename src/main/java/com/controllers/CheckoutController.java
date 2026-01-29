@@ -1,9 +1,9 @@
 package com.controllers;
 
-import com.ecommerce.models.CartItem;
-import com.ecommerce.models.Order;
-import com.ecommerce.service.CartService;
-import com.ecommerce.service.OrderService;
+import com.models.CartItem;
+import com.models.Order;
+import com.service.CartService;
+import com.service.OrderService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -67,14 +67,14 @@ public class CheckoutController {
 
     private void prefillUserInfo() {
         // Pre-fill user information if logged in
-        if (com.ecommerce.service.UserService.getInstance().getCurrentUser() != null) {
-            nameField.setText(com.ecommerce.service.UserService.getInstance().getCurrentUser().getName());
-            emailField.setText(com.ecommerce.service.UserService.getInstance().getCurrentUser().getEmail());
-            if (com.ecommerce.service.UserService.getInstance().getCurrentUser().getPhone() != null) {
-                phoneField.setText(com.ecommerce.service.UserService.getInstance().getCurrentUser().getPhone());
+        if (com.service.UserService.getInstance().getCurrentUser() != null) {
+            nameField.setText(com.service.UserService.getInstance().getCurrentUser().getName());
+            emailField.setText(com.service.UserService.getInstance().getCurrentUser().getEmail());
+            if (com.service.UserService.getInstance().getCurrentUser().getPhone() != null) {
+                phoneField.setText(com.service.UserService.getInstance().getCurrentUser().getPhone());
             }
-            if (com.ecommerce.service.UserService.getInstance().getCurrentUser().getAddress() != null) {
-                addressField.setText(com.ecommerce.service.UserService.getInstance().getCurrentUser().getAddress());
+            if (com.service.UserService.getInstance().getCurrentUser().getAddress() != null) {
+                addressField.setText(com.service.UserService.getInstance().getCurrentUser().getAddress());
             }
         }
     }
@@ -126,8 +126,8 @@ public class CheckoutController {
         }
 
         try {
-            int userId = com.ecommerce.service.UserService.getInstance().getCurrentUser() != null ? 
-                        com.ecommerce.service.UserService.getInstance().getCurrentUser().getUserId() : 0;
+            int userId = com.service.UserService.getInstance().getCurrentUser() != null ? 
+                        com.service.UserService.getInstance().getCurrentUser().getUserId() : 0;
             
             String shippingAddress = String.format("%s, %s %s",
                     addressField.getText().trim(),
@@ -161,7 +161,7 @@ public class CheckoutController {
     private void backToMain() {
         try {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
-                com.ecommerce.Main.class.getResource("/com/ecommerce/client-modern.fxml"));
+                com.Main.class.getResource("/design-application/views/client-modern.fxml"));
             javafx.scene.Parent root = loader.load();
             javafx.scene.Scene scene = new javafx.scene.Scene(root);
             javafx.stage.Stage stage = (javafx.stage.Stage) nameField.getScene().getWindow();
@@ -193,7 +193,7 @@ public class CheckoutController {
     public void backToCart() {
         try {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
-                    com.ecommerce.Main.class.getResource("/com/ecommerce/cart-view.fxml"));
+                    com.Main.class.getResource("/design-application/views/cart-view.fxml"));
             javafx.scene.Parent root = loader.load();
             CartViewController controller = loader.getController();
             controller.setClientViewController(clientViewController);

@@ -1,11 +1,11 @@
 package com.controllers;
 
-import com.ecommerce.Main;
-import com.ecommerce.models.Category;
-import com.ecommerce.models.Order;
-import com.ecommerce.models.Product;
-import com.ecommerce.models.User;
-import com.ecommerce.service.*;
+import com.Main;
+import com.models.Category;
+import com.models.Order;
+import com.models.Product;
+import com.models.User;
+import com.service.*;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -176,15 +176,15 @@ public class AdminDashboardController {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
         
         statsRow.getChildren().addAll(
-            createStatCard("📦 Products", String.valueOf(products.size()), "#3498db"),
-            createStatCard("🛒 Orders", String.valueOf(orders.size()), "#9b59b6"),
-            createStatCard("👥 Users", String.valueOf(users.size()), "#27ae60"),
-            createStatCard("⏳ Pending", String.valueOf(pendingOrders), "#e67e22"),
-            createStatCard("💰 Revenue", String.format("$%.2f", totalRevenue), "#1abc9c")
+            createStatCard(" Products", String.valueOf(products.size()), "#3498db"),
+            createStatCard(" Orders", String.valueOf(orders.size()), "#9b59b6"),
+            createStatCard(" Users", String.valueOf(users.size()), "#27ae60"),
+            createStatCard(" Pending", String.valueOf(pendingOrders), "#e67e22"),
+            createStatCard(" Revenue", String.format("$%.2f", totalRevenue), "#1abc9c")
         );
         
         // Recent orders table
-        Label recentLabel = new Label("📋 Recent Orders");
+        Label recentLabel = new Label(" Recent Orders");
         recentLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
         
         TableView<Order> recentOrdersTable = createRecentOrdersTable(orders);
@@ -264,7 +264,7 @@ public class AdminDashboardController {
         HBox header = new HBox(20);
         header.setAlignment(Pos.CENTER_LEFT);
         
-        Label title = new Label("📦 Product Management");
+        Label title = new Label(" Product Management");
         title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
         
         Region spacer = new Region();
@@ -539,7 +539,7 @@ public class AdminDashboardController {
         statusFilter.setValue("All");
         statusFilter.setStyle("-fx-pref-width: 150;");
         
-        Button refreshBtn = new Button("🔄 Refresh");
+        Button refreshBtn = new Button(" Refresh");
         refreshBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-cursor: hand;");
         
         filterRow.getChildren().addAll(new Label("Filter by Status:"), statusFilter, refreshBtn);
@@ -669,7 +669,6 @@ public class AdminDashboardController {
         
         return table;
     }
-    
     // ============ USERS VIEW ============
     
     private VBox createUsersView() {
@@ -745,7 +744,7 @@ public class AdminDashboardController {
         container.setPadding(new Insets(20));
         container.setStyle("-fx-background-color: #f5f6fa;");
         
-        Label title = new Label("📋 Inventory Management");
+        Label title = new Label(" Inventory Management");
         title.setStyle("-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
         
         // Filter for low stock
@@ -755,7 +754,7 @@ public class AdminDashboardController {
         CheckBox lowStockOnly = new CheckBox("Show Low Stock Only (< 10 items)");
         lowStockOnly.setStyle("-fx-font-size: 14px;");
         
-        Button refreshBtn = new Button("🔄 Refresh");
+        Button refreshBtn = new Button(" Refresh");
         refreshBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-cursor: hand;");
         
         filterRow.getChildren().addAll(lowStockOnly, refreshBtn);

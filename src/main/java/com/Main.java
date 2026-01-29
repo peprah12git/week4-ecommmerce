@@ -1,6 +1,6 @@
 package com;
 
-import com.ecommerce.util.DatabaseInitializer;
+import com.util.DatabaseInitializer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,11 +24,11 @@ public class Main extends Application {
     }
 
     private void showAdminLogin() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/ecommerce/admin-login.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/design-application/views/admin-login.fxml"));
         Parent root = loader.load();
 
-        com.ecommerce.controllers.AdminLoginController controller = loader.getController();
-        controller.setHost(new com.ecommerce.controllers.AdminLoginController.AdminLoginHost() {
+        com.controllers.AdminLoginController controller = loader.getController();
+        controller.setHost(new com.controllers.AdminLoginController.AdminLoginHost() {
             @Override
             public void onAdminAuthenticated() {
                 try {
@@ -57,11 +57,11 @@ public class Main extends Application {
     }
 
     private void showLogin() throws IOException {
-        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/ecommerce/login-view-new.fxml"));
+        FXMLLoader loader = new FXMLLoader(Main.class.getResource("/design-application/views/login-view-new.fxml"));
         Parent root = loader.load();
 
-        com.ecommerce.controllers.LoginController controller = loader.getController();
-        controller.setHost(new com.ecommerce.controllers.LoginController.MainHost() {
+        com.controllers.LoginController controller = loader.getController();
+        controller.setHost(new com.controllers.LoginController.MainHost() {
             @Override
             public void onAdminAuthenticated() {
                 try {
@@ -108,7 +108,7 @@ public class Main extends Application {
     }
 
     private void showAdminView() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/ecommerce/main-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/design-application/views/main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1400, 800);
 
         primaryStage.setTitle("Smart E-Commerce System - Admin");
@@ -121,7 +121,7 @@ public class Main extends Application {
     }
 
     private void showClientView() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/com/ecommerce/client-modern.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/design-application/views/client-modern.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 1200, 800);
 
         primaryStage.setTitle("Smart E-Commerce Store");
@@ -133,7 +133,7 @@ public class Main extends Application {
         primaryStage.show();
 
         System.out.println("✓ Modern client view loaded for " + 
-            com.ecommerce.controllers.UserSession.getCurrentUserName());
+            com.controllers.UserSession.getCurrentUserName());
     }
 
     private void showError(String message, Exception e) {
@@ -149,7 +149,7 @@ public class Main extends Application {
     @Override
     public void stop() {
         System.out.println("✓ Application closing...");
-        com.ecommerce.config.DatabaseConnection.getInstance().closeConnection();
+        com.config.DatabaseConnection.getInstance().closeConnection();
     }
 
     public static void main(String[] args) {

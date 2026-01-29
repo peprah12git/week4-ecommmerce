@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.ecommerce.controllers.LoginController"
+            fx:controller="com.controllers.LoginController"
             prefHeight="600" prefWidth="900" style="-fx-background-color: linear-gradient(to bottom right, #667eea, #764ba2);">
 
     <center>

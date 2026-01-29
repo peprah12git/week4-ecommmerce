@@ -1,7 +1,7 @@
 package com.service;
 
-import com.ecommerce.dao.InventoryDAO;
-import com.ecommerce.models.Inventory;
+import com.dao.InventoryDAO;
+import com.models.Inventory;
 
 import java.util.ArrayList;
 import java.util.Comparator;

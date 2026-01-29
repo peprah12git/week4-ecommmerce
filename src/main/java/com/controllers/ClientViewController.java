@@ -1,7 +1,7 @@
 package com.controllers;
 
-import com.ecommerce.Main;
-import com.ecommerce.service.CartService;
+import com.Main;
+import com.service.CartService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -39,7 +39,7 @@ public class ClientViewController {
 
     private void loadProductBrowser() {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/ecommerce/product-browser.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/design-application/views/product-browser.fxml"));
             Parent root = loader.load();
             ProductBrowserController controller = loader.getController();
             controller.setClientViewController(this);
@@ -55,7 +55,7 @@ public class ClientViewController {
     @FXML
     private void showCart() {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/ecommerce/cart-view.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/design-application/views/cart-view.fxml"));
             Parent root = loader.load();
             CartViewController controller = loader.getController();
             controller.setClientViewController(this);
@@ -69,7 +69,7 @@ public class ClientViewController {
     @FXML
     private void showOrders() {
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/com/ecommerce/order-history.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/design-application/views/order-history.fxml"));
             Parent root = loader.load();
             OrderHistoryController controller = loader.getController();
             controller.setClientViewController(this);

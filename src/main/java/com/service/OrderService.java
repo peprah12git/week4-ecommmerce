@@ -1,10 +1,10 @@
 package com.service;
 
-import com.ecommerce.dao.OrderDAO;
-import com.ecommerce.dao.OrderItemDAO;
-import com.ecommerce.models.CartItem;
-import com.ecommerce.models.Order;
-import com.ecommerce.models.OrderItem;
+import com.dao.OrderDAO;
+import com.dao.OrderItemDAO;
+import com.models.CartItem;
+import com.models.Order;
+import com.models.OrderItem;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -213,7 +213,7 @@ public class OrderService {
      * Ensures consistency: either all inserts succeed or none do.
      */
     public boolean createOrderWithItems(Order order, List<OrderItem> items) {
-        java.sql.Connection conn = com.ecommerce.config.DatabaseConnection.getInstance().getConnection();
+        java.sql.Connection conn = com.config.DatabaseConnection.getInstance().getConnection();
         try {
             conn.setAutoCommit(false);
 

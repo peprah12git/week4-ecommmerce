@@ -1,6 +1,6 @@
 package com.service;
 
-import com.ecommerce.models.CartItem;
+import com.models.CartItem;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 

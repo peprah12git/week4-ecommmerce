@@ -1,7 +1,7 @@
 package com.controllers;
 
-import com.ecommerce.models.CartItem;
-import com.ecommerce.service.CartService;
+import com.models.CartItem;
+import com.service.CartService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -108,7 +108,7 @@ public class CartViewController {
     private void continueShopping() {
         try {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
-                com.ecommerce.Main.class.getResource("/com/ecommerce/client-modern.fxml"));
+                com.Main.class.getResource("/design-application/views/client-modern.fxml"));
             javafx.scene.Parent root = loader.load();
             javafx.scene.Scene scene = new javafx.scene.Scene(root);
             javafx.stage.Stage stage = (javafx.stage.Stage) cartTable.getScene().getWindow();
@@ -151,7 +151,7 @@ public class CartViewController {
         }
         try {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
-                com.ecommerce.Main.class.getResource("/com/ecommerce/checkout.fxml"));
+                com.Main.class.getResource("/design-application/views/checkout.fxml"));
             javafx.scene.Parent root = loader.load();
             CheckoutController controller = loader.getController();
             controller.setCartItems(new java.util.ArrayList<>(CartService.getInstance().getCartItems()));
