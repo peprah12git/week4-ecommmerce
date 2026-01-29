@@ -1,11 +1,11 @@
 package com.controllers;
 
-import com.ecommerce.Main;
-import com.ecommerce.models.Category;
-import com.ecommerce.models.Product;
-import com.ecommerce.service.CartService;
-import com.ecommerce.service.CategoryService;
-import com.ecommerce.service.ProductService;
+import com.Main;
+import com.models.Category;
+import com.models.Product;
+import com.service.CartService;
+import com.service.CategoryService;
+import com.service.ProductService;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -46,8 +46,8 @@ public class ClientModernController {
     }
 
     private void setupUI() {
-        if (com.ecommerce.service.UserService.getInstance().getCurrentUser() != null) {
-            lblWelcome.setText("Welcome, " + com.ecommerce.service.UserService.getInstance().getCurrentUser().getName());
+        if (com.service.UserService.getInstance().getCurrentUser() != null) {
+            lblWelcome.setText("Welcome, " + com.service.UserService.getInstance().getCurrentUser().getName());
         }
 
         // Setup category filter
@@ -157,7 +157,7 @@ public class ClientModernController {
     }
 
     private void addToCart(Product product) {
-        com.ecommerce.models.CartItem cartItem = new com.ecommerce.models.CartItem(
+        com.models.CartItem cartItem = new com.models.CartItem(
             product.getProductId(), 
             product.getProductName(), 
             product.getPrice(), 
@@ -221,7 +221,7 @@ public class ClientModernController {
     public void showCart() {
         try {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
-                Main.class.getResource("/com/ecommerce/cart-view.fxml"));
+                Main.class.getResource("/design-application/views/cart-view.fxml"));
             javafx.scene.Parent root = loader.load();
             javafx.scene.Scene scene = new javafx.scene.Scene(root);
             Stage stage = (Stage) btnCart.getScene().getWindow();
@@ -235,11 +235,11 @@ public class ClientModernController {
     public void showOrders() {
         try {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
-                Main.class.getResource("/com/ecommerce/order-history.fxml"));
+                Main.class.getResource("/design-application/views/order-history.fxml"));
             javafx.scene.Parent root = loader.load();
             OrderHistoryController controller = loader.getController();
-            int userId = com.ecommerce.service.UserService.getInstance().getCurrentUser() != null ? 
-                com.ecommerce.service.UserService.getInstance().getCurrentUser().getUserId() : 0;
+            int userId = com.service.UserService.getInstance().getCurrentUser() != null ? 
+                com.service.UserService.getInstance().getCurrentUser().getUserId() : 0;
             controller.setCurrentUserId(userId);
             controller.loadOrders();
             javafx.scene.Scene scene = new javafx.scene.Scene(root);

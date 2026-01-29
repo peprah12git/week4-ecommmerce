@@ -1,11 +1,11 @@
 package com.controllers;
 
-import com.ecommerce.models.CartItem;
-import com.ecommerce.models.Product;
-import com.ecommerce.models.Review;
-import com.ecommerce.service.CartService;
-import com.ecommerce.service.ProductService;
-import com.ecommerce.service.ReviewService;
+import com.models.CartItem;
+import com.models.Product;
+import com.models.Review;
+import com.service.CartService;
+import com.service.ProductService;
+import com.service.ReviewService;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;

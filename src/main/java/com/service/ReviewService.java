@@ -1,7 +1,7 @@
 package com.service;
 
-import com.ecommerce.dao.ReviewDAO;
-import com.ecommerce.models.Review;
+import com.dao.ReviewDAO;
+import com.models.Review;
 
 import java.util.*;
 import java.util.stream.Collectors;

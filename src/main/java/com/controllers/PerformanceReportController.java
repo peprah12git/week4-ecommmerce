@@ -1,9 +1,9 @@
 package com.controllers;
 
-import com.ecommerce.service.OrderService;
-import com.ecommerce.service.ProductService;
-import com.ecommerce.service.UserService;
-import com.ecommerce.util.PerformanceTimer;
+import com.service.OrderService;
+import com.service.ProductService;
+import com.service.UserService;
+import com.util.PerformanceTimer;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;

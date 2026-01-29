@@ -1,10 +1,10 @@
 package com.controllers;
 
-import com.ecommerce.models.CartItem;
-import com.ecommerce.models.Product;
-import com.ecommerce.service.CartService;
-import com.ecommerce.service.CategoryService;
-import com.ecommerce.service.ProductService;
+import com.models.CartItem;
+import com.models.Product;
+import com.service.CartService;
+import com.service.CategoryService;
+import com.service.ProductService;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
@@ -147,7 +147,7 @@ public class ProductBrowserController {
     private void viewProductDetails(Product product) {
         try {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
-                    com.ecommerce.Main.class.getResource("/com/ecommerce/product-detail.fxml"));
+                    com.Main.class.getResource("/design-application/views/product-detail.fxml"));
             javafx.scene.Parent root = loader.load();
             ProductDetailController controller = loader.getController();
             controller.setProduct(product.getProductId());

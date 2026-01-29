@@ -1,7 +1,7 @@
 package com.service;
 
-import com.ecommerce.dao.ProductDAO;
-import com.ecommerce.models.Product;
+import com.dao.ProductDAO;
+import com.models.Product;
 
 import java.util.*;
 import java.util.stream.Collectors;

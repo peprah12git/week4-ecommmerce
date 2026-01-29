@@ -1,7 +1,7 @@
 package com.controllers;
 
-import com.ecommerce.models.Order;
-import com.ecommerce.service.OrderService;
+import com.models.Order;
+import com.service.OrderService;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -91,7 +91,7 @@ public class OrderHistoryController {
     private void backToProducts() {
         try {
             javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
-                com.ecommerce.Main.class.getResource("/com/ecommerce/client-modern.fxml"));
+                com.Main.class.getResource("/design-application/views/client-modern.fxml"));
             javafx.scene.Parent root = loader.load();
             javafx.scene.Scene scene = new javafx.scene.Scene(root);
             javafx.stage.Stage stage = (javafx.stage.Stage) ordersTable.getScene().getWindow();

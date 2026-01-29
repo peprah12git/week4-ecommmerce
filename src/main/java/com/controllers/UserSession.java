@@ -1,6 +1,6 @@
 package com.controllers;
 
-import com.ecommerce.models.User;
+import com.models.User;
 
 public class UserSession {
     private static User currentUser;

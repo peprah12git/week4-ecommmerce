@@ -1,7 +1,7 @@
 package com.service;
 
-import com.ecommerce.dao.UserDAO;
-import com.ecommerce.models.User;
+import com.dao.UserDAO;
+import com.models.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
