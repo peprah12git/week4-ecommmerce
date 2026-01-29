@@ -1,0 +1,227 @@
+/* Client Dashboard Styles */
+
+.client-root {
+    -fx-background-color: #f5f6fa;
+}
+
+/* Top Navigation Bar */
+.top-bar {
+    -fx-background-color: linear-gradient(to right, #667eea, #764ba2);
+    -fx-padding: 15;
+}
+
+.top-bar .label {
+    -fx-text-fill: white;
+}
+
+.top-bar .button {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-text-fill: white;
+    -fx-background-radius: 5;
+    -fx-cursor: hand;
+    -fx-font-weight: bold;
+}
+
+.top-bar .button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.3);
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+}
+
+/* Product Cards */
+.product-card {
+    -fx-background-color: white;
+    -fx-border-color: #e1e8ed;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 8, 0, 0, 2);
+}
+
+.product-card:hover {
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.4), 15, 0, 0, 5);
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.product-card .label {
+    -fx-wrap-text: true;
+}
+
+.product-name {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.product-price {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #27ae60;
+}
+
+.product-description {
+    -fx-font-size: 11px;
+    -fx-text-fill: #7f8c8d;
+}
+
+/* Search and Filter Bar */
+.search-bar {
+    -fx-background-color: white;
+    -fx-padding: 15;
+    -fx-background-radius: 5;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.08), 5, 0, 0, 2);
+}
+
+.search-field, .combo-box {
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+}
+
+/* Cart Table */
+.table-view {
+    -fx-background-color: white;
+    -fx-background-radius: 5;
+}
+
+.table-view .column-header {
+    -fx-background-color: #f8f9fa;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: #f1f3f5;
+}
+
+/* Order Summary Card */
+.summary-card {
+    -fx-background-color: white;
+    -fx-border-color: #e1e8ed;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 10, 0, 0, 3);
+}
+
+.summary-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #2c3e50;
+}
+
+.total-amount {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e74c3c;
+}
+
+/* Buttons */
+.primary-button {
+    -fx-background-color: #667eea;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(102, 126, 234, 0.4), 8, 0, 0, 3);
+}
+
+.primary-button:hover {
+    -fx-background-color: #5568d3;
+    -fx-scale-x: 1.02;
+    -fx-scale-y: 1.02;
+}
+
+.secondary-button {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.secondary-button:hover {
+    -fx-background-color: #2980b9;
+}
+
+.success-button {
+    -fx-background-color: #27ae60;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+}
+
+.success-button:hover {
+    -fx-background-color: #229954;
+}
+
+.danger-button {
+    -fx-background-color: #e74c3c;
+    -fx-text-fill: white;
+    -fx-background-radius: 6;
+    -fx-font-size: 11px;
+    -fx-padding: 6 12;
+    -fx-cursor: hand;
+}
+
+.danger-button:hover {
+    -fx-background-color: #c0392b;
+}
+
+/* Review Cards */
+.review-card {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #e0e0e0;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+    -fx-padding: 12;
+}
+
+.review-user {
+    -fx-font-weight: bold;
+    -fx-font-size: 13px;
+    -fx-text-fill: #2c3e50;
+}
+
+.review-text {
+    -fx-font-size: 12px;
+    -fx-text-fill: #555;
+}
+
+.review-date {
+    -fx-font-size: 10px;
+    -fx-text-fill: #7f8c8d;
+}
+
+/* Spinner */
+.spinner {
+    -fx-pref-width: 80px;
+}
+
+.spinner .text-field {
+    -fx-background-radius: 5;
+}
+
+/* ScrollPane */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane .viewport {
+    -fx-background-color: transparent;
+}
+
+/* Empty State */
+.empty-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #95a5a6;
+    -fx-font-style: italic;
+}

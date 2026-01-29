@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.controllers.ClientModernController"
+            prefHeight="800" prefWidth="1200" style="-fx-background-color: #f5f7fa;">
+
+    <!-- Top Navigation Bar -->
+    <top>
+        <VBox style="-fx-background-color: linear-gradient(to right, #667eea, #764ba2); -fx-padding: 20;">
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <Label text="🛍️ E-Commerce Store" style="-fx-text-fill: white; -fx-font-size: 24px; -fx-font-weight: bold;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Label fx:id="lblWelcome" text="Welcome, Guest" style="-fx-text-fill: white; -fx-font-size: 14px;"/>
+                <Button fx:id="btnCart" text="🛒 Cart (0)" onAction="#showCart" 
+                        style="-fx-background-color: white; -fx-text-fill: #667eea; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 20;"/>
+                <Button text="📦 Orders" onAction="#showOrders" 
+                        style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 20;"/>
+                <Button text="Logout" onAction="#logout" 
+                        style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 20;"/>
+            </HBox>
+            
+            <!-- Search and Filter Bar -->
+            <HBox alignment="CENTER_LEFT" spacing="15" style="-fx-padding: 15 0 0 0;">
+                <TextField fx:id="txtSearch" promptText="🔍 Search products..." prefWidth="300"
+                           style="-fx-background-color: white; -fx-background-radius: 20; -fx-padding: 10 15;"/>
+                <Button text="Search" onAction="#handleSearch" 
+                        style="-fx-background-color: white; -fx-text-fill: #667eea; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 20;"/>
+                
+                <Label text="Category:" style="-fx-text-fill: white;"/>
+                <ComboBox fx:id="cmbCategory" onAction="#handleFilter" prefWidth="150"
+                          style="-fx-background-color: white; -fx-background-radius: 15;"/>
+                
+                <Label text="Sort:" style="-fx-text-fill: white;"/>
+                <ComboBox fx:id="cmbSort" onAction="#handleSort" prefWidth="150"
+                          style="-fx-background-color: white; -fx-background-radius: 15;"/>
+                
+                <Button text="🔄 Refresh" onAction="#handleRefresh"
+                        style="-fx-background-color: rgba(255,255,255,0.2); -fx-text-fill: white; -fx-padding: 10 15; -fx-background-radius: 20;"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <!-- Main Content - Product Cards Grid -->
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: transparent; -fx-background: transparent;">
+            <VBox spacing="20" style="-fx-padding: 30;">
+                <Label fx:id="lblStatus" text="Loading products..." style="-fx-font-size: 14px; -fx-text-fill: #666;"/>
+                
+                <!-- Product Cards Container -->
+                <FlowPane fx:id="productCardsContainer" hgap="20" vgap="20" prefWrapLength="1200"/>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

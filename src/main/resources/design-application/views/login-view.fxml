@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.ecommerce.controllers.LoginController"
+            stylesheets="@login.css">
+    <children>
+        <VBox spacing="12" AnchorPane.topAnchor="40.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="40.0"
+              styleClass="card">
+            <Label text="Smart E-Commerce" styleClass="title" />
+            <Label text="Sign in to continue" styleClass="subtitle" />
+
+            <Label text="Email" styleClass="field-label" />
+            <TextField fx:id="txtEmail" promptText="email@example.com" />
+
+            <Label text="Password" styleClass="field-label" />
+            <PasswordField fx:id="txtPassword" promptText="••••••••" />
+
+            <HBox spacing="10">
+                <Button text="Sign In" onAction="#handleLogin" styleClass="btn-primary" />
+                <Button text="Continue as Guest" onAction="#handleGuest" styleClass="btn-ghost" />
+            </HBox>
+
+            <Label fx:id="lblStatus" text=" " styleClass="status" />
+        </VBox>
+    </children>
+</AnchorPane>
