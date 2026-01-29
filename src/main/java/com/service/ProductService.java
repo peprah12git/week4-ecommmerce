@@ -42,7 +42,7 @@ public class ProductService {
     private static final long CACHE_VALIDITY = 300000; // 5 minutes
 
     public ProductService() {
-        this.productDAO = new ProductDAO();
+        this.productDAO = ProductDAO.getInstance();
         this.productCache = new HashMap<>();
         this.allProductsCache = new ArrayList<>();
         this.lastCacheUpdate = 0;
@@ -126,7 +126,7 @@ public class ProductService {
         }
 
         long start = System.currentTimeMillis();
-        List<Product> results = productDAO.searchProductsByName(term);
+        List<Product> results = productDAO.searchProducts(term);
         long duration = System.currentTimeMillis() - start;
         System.out.println("⏱ searchProductsByName('" + term + "') time: " + duration + " ms | rows: " + results.size());
         return results;
