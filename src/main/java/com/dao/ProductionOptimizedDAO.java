@@ -19,11 +19,6 @@ public class ProductionOptimizedDAO {
     private final Map<Integer, Product> productCache = new ConcurrentHashMap<>();
     private final Map<String, List<Product>> searchCache = new ConcurrentHashMap<>();
     private final PerformanceMonitor monitor = PerformanceMonitor.getInstance();
-    private long lastCacheUpdate = 0;
-    
-    private Connection getConnection() {
-        return DatabaseConnection.getInstance().getConnection();
-    }
     
     private static final String GET_ALL_PRODUCTS = """
         SELECT p.product_id, p.name, p.description, p.price, p.category_id, p.created_at,
@@ -64,14 +59,19 @@ public class ProductionOptimizedDAO {
         long startTime = monitor.startTimer();
         List<Product> products = new ArrayList<>();
         
-        try (PreparedStatement stmt = getConnection().prepareStatement(GET_ALL_PRODUCTS);
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(GET_ALL_PRODUCTS);
              ResultSet rs = stmt.executeQuery()) {
             
             while (rs.next()) {
-                products.add(mapResultSetToProduct(rs));
+                Product product = mapResultSetToProduct(rs);
+                products.add(product);
+                productCache.put(product.getProductId(), product);
             }
             
-        } catch (SQLException e) {}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         
         monitor.recordQueryTime("getAllProducts", startTime);
         return products;
@@ -85,16 +85,19 @@ public class ProductionOptimizedDAO {
         long startTime = monitor.startTimer();
         Product product = null;
         
-        try (PreparedStatement stmt = getConnection().prepareStatement(GET_PRODUCT_BY_ID)) {
-            stmt.setInt(1, productId);
-            ResultSet rs = stmt.executeQuery();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(GET_PRODUCT_BY_ID)) {
             
-            if (rs.next()) {
-                product = mapResultSetToProduct(rs);
-                productCache.put(productId, product);
-                lastCacheUpdate = System.currentTimeMillis();
+            stmt.setInt(1, productId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    product = mapResultSetToProduct(rs);
+                    productCache.put(productId, product);
+                }
             }
-        } catch (SQLException e) {}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         
         monitor.recordQueryTime("getProductById", startTime);
         return product;
@@ -109,30 +112,33 @@ public class ProductionOptimizedDAO {
         long startTime = monitor.startTimer();
         List<Product> products = new ArrayList<>();
         
-        try (PreparedStatement stmt = getConnection().prepareStatement(SEARCH_PRODUCTS)) {
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement stmt = conn.prepareStatement(SEARCH_PRODUCTS)) {
+            
             String pattern = "%" + searchTerm.toLowerCase() + "%";
             stmt.setString(1, pattern);
             stmt.setString(2, pattern);
             
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Product product = mapResultSetToProduct(rs);
-                products.add(product);
-                productCache.put(product.getProductId(), product);
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    Product product = mapResultSetToProduct(rs);
+                    products.add(product);
+                    productCache.put(product.getProductId(), product);
+                }
             }
             
             searchCache.put(cacheKey, products);
-            lastCacheUpdate = System.currentTimeMillis();
-        } catch (SQLException e) {}
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         
-        //monitor.recordQueryTime("searchProducts", startTime);
+        monitor.recordQueryTime("searchProducts", startTime);
         return products;
     }
 
     public void clearCache() {
         productCache.clear();
         searchCache.clear();
-        lastCacheUpdate = 0;
     }
 
     public Map<String, Integer> getCacheStats() {
