@@ -23,6 +23,8 @@ public class OrderHistoryController {
     @FXML private TableColumn<Order, String> dateColumn;
     @FXML private TableColumn<Order, String> statusColumn;
     @FXML private TableColumn<Order, String> totalColumn;
+    @FXML private TableColumn<Order, String> itemsColumn;
+    @FXML private TableColumn<Order, String> actionColumn;
     @FXML private ComboBox<String> statusFilter;
     @FXML private Label emptyLabel;
 
@@ -58,6 +60,13 @@ public class OrderHistoryController {
         totalColumn.setCellValueFactory(cellData -> {
             String total = "$" + cellData.getValue().getTotalAmount();
             return new javafx.beans.property.SimpleStringProperty(total);
+        });
+        itemsColumn.setCellValueFactory(cellData -> {
+            String items = String.valueOf(cellData.getValue().getOrderItems().size());
+            return new javafx.beans.property.SimpleStringProperty(items);
+        });
+        actionColumn.setCellValueFactory(cellData -> {
+            return new javafx.beans.property.SimpleStringProperty("View Details");
         });
     }
 
