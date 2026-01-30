@@ -115,25 +115,21 @@ public class OrderService {
                 .sum();
     }
 
-    // Sorting
+    // Sorting with Merge Sort
     public List<Order> sortByDate(boolean ascending) {
-        List<Order> orders = getAllOrders();
-        if (ascending) {
-            orders.sort(Comparator.comparing(Order::getOrderDate));
-        } else {
-            orders.sort(Comparator.comparing(Order::getOrderDate).reversed());
-        }
-        return orders;
+        Comparator<Order> comparator = ascending ? 
+            Comparator.comparing(Order::getOrderDate) : 
+            Comparator.comparing(Order::getOrderDate).reversed();
+        SortStrategy<Order> sortStrategy = new MergeSortStrategy(comparator);
+        return sortStrategy.sort(getAllOrders());
     }
 
     public List<Order> sortByAmount(boolean ascending) {
-        List<Order> orders = getAllOrders();
-        if (ascending) {
-            orders.sort(Comparator.comparing(Order::getTotalAmount));
-        } else {
-            orders.sort(Comparator.comparing(Order::getTotalAmount).reversed());
-        }
-        return orders;
+        Comparator<Order> comparator = ascending ? 
+            Comparator.comparing(Order::getTotalAmount) : 
+            Comparator.comparing(Order::getTotalAmount).reversed();
+        SortStrategy<Order> sortStrategy = new MergeSortStrategy(comparator);
+        return sortStrategy.sort(getAllOrders());
     }
 
     public List<String> getStatusOptions() {

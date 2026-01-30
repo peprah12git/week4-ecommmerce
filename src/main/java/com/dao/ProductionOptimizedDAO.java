@@ -41,8 +41,8 @@ public class ProductionOptimizedDAO {
     private static final String SEARCH_PRODUCTS = """
         SELECT p.product_id, p.name, p.description, p.price, p.category_id, p.created_at,
                c.category_name, COALESCE(i.quantity_available, 0) as quantity
-        FROM Products p 
-        LEFT JOIN Categories c ON p.category_id = c.category_id 
+        FROM Products p
+        LEFT JOIN Categories c ON p.category_id = c.category_id
         LEFT JOIN Inventory i ON p.product_id = i.product_id 
         WHERE p.name LIKE ? OR p.description LIKE ?
         ORDER BY p.name
@@ -54,7 +54,7 @@ public class ProductionOptimizedDAO {
     public static ProductionOptimizedDAO getInstance() {
         return instance;
     }
-
+// No Caching for getAllProducts to ensure fresh data
     public List<Product> getAllProducts() {
         long startTime = monitor.startTimer();
         List<Product> products = new ArrayList<>();
@@ -78,10 +78,11 @@ public class ProductionOptimizedDAO {
     }
 
     public Product getProductById(int productId) {
+        // Check cache first
         if (productCache.containsKey(productId)) {
             return productCache.get(productId);
         }
-
+// If not in cache, query database
         long startTime = monitor.startTimer();
         Product product = null;
         
@@ -112,9 +113,8 @@ public class ProductionOptimizedDAO {
         long startTime = monitor.startTimer();
         List<Product> products = new ArrayList<>();
         
-        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+        try (Connection conn = getConnection();
              PreparedStatement stmt = conn.prepareStatement(SEARCH_PRODUCTS)) {
-            
             String pattern = "%" + searchTerm.toLowerCase() + "%";
             stmt.setString(1, pattern);
             stmt.setString(2, pattern);
@@ -128,6 +128,7 @@ public class ProductionOptimizedDAO {
             }
             
             searchCache.put(cacheKey, products);
+            lastCacheUpdate = System.currentTimeMillis();
         } catch (SQLException e) {
             e.printStackTrace();
         }
