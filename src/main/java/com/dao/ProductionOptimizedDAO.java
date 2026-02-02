@@ -19,6 +19,7 @@ public class ProductionOptimizedDAO {
     private final Map<Integer, Product> productCache = new ConcurrentHashMap<>();
     private final Map<String, List<Product>> searchCache = new ConcurrentHashMap<>();
     private final PerformanceMonitor monitor = PerformanceMonitor.getInstance();
+    private long lastCacheUpdate = 0;
     
     private static final String GET_ALL_PRODUCTS = """
         SELECT p.product_id, p.name, p.description, p.price, p.category_id, p.created_at,
@@ -113,7 +114,7 @@ public class ProductionOptimizedDAO {
         long startTime = monitor.startTimer();
         List<Product> products = new ArrayList<>();
         
-        try (Connection conn = getConnection();
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement stmt = conn.prepareStatement(SEARCH_PRODUCTS)) {
             String pattern = "%" + searchTerm.toLowerCase() + "%";
             stmt.setString(1, pattern);

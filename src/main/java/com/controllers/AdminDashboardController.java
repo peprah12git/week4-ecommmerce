@@ -278,12 +278,109 @@ public class AdminDashboardController {
         
         header.getChildren().addAll(title, spacer, addBtn);
         
+        // Search and Filter Row
+        HBox filterRow = new HBox(15);
+        filterRow.setAlignment(Pos.CENTER_LEFT);
+        
+        TextField searchField = new TextField();
+        searchField.setPromptText("🔍 Search products...");
+        searchField.setPrefWidth(250);
+        
+        ComboBox<String> categoryFilter = new ComboBox<>();
+        categoryFilter.getItems().add("All Categories");
+        categoryFilter.getItems().addAll(categoryService.getAllCategories().stream()
+                .map(Category::getCategoryName).toList());
+        categoryFilter.setValue("All Categories");
+        categoryFilter.setPrefWidth(150);
+        
+        ComboBox<String> sortBy = new ComboBox<>();
+        sortBy.getItems().addAll("Name (A-Z)", "Name (Z-A)", "Price (Low-High)", "Price (High-Low)", "Stock (Low-High)", "Stock (High-Low)");
+        sortBy.setPromptText("Sort by...");
+        sortBy.setPrefWidth(150);
+        
+        Button refreshBtn = new Button("🔄 Refresh");
+        refreshBtn.setStyle("-fx-background-color: #3498db; -fx-text-fill: white; -fx-cursor: hand;");
+        
+        filterRow.getChildren().addAll(searchField, categoryFilter, sortBy, refreshBtn);
+        
         // Product table
         TableView<Product> productTable = createProductTable();
         VBox.setVgrow(productTable, Priority.ALWAYS);
         
-        container.getChildren().addAll(header, productTable);
+        // Search functionality
+        searchField.textProperty().addListener((obs, oldVal, newVal) -> {
+            applyFiltersAndSort(productTable, newVal, categoryFilter.getValue(), sortBy.getValue());
+        });
+        
+        // Category filter functionality
+        categoryFilter.setOnAction(e -> {
+            applyFiltersAndSort(productTable, searchField.getText(), categoryFilter.getValue(), sortBy.getValue());
+        });
+        
+        // Sort functionality
+        sortBy.setOnAction(e -> {
+            applyFiltersAndSort(productTable, searchField.getText(), categoryFilter.getValue(), sortBy.getValue());
+        });
+        
+        // Refresh functionality
+        refreshBtn.setOnAction(e -> {
+            searchField.clear();
+            categoryFilter.setValue("All Categories");
+            sortBy.setValue(null);
+            productList = FXCollections.observableArrayList(productService.getAllProducts());
+            productTable.setItems(productList);
+            updateStatus("Products refreshed");
+        });
+        
+        container.getChildren().addAll(header, filterRow, productTable);
         return container;
+    }
+    
+    private void applyFiltersAndSort(TableView<Product> table, String searchTerm, String category, String sortOption) {
+        List<Product> filtered = productService.getAllProducts();
+        
+        // Apply search filter
+        if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+            String lower = searchTerm.toLowerCase();
+            filtered = filtered.stream()
+                    .filter(p -> p.getProductName().toLowerCase().contains(lower) ||
+                            p.getDescription().toLowerCase().contains(lower))
+                    .toList();
+        }
+        
+        // Apply category filter
+        if (category != null && !"All Categories".equals(category)) {
+            filtered = filtered.stream()
+                    .filter(p -> category.equals(p.getCategoryName()))
+                    .toList();
+        }
+        
+        // Apply sorting
+        if (sortOption != null) {
+            filtered = switch (sortOption) {
+                case "Name (A-Z)" -> filtered.stream()
+                        .sorted(java.util.Comparator.comparing(Product::getProductName))
+                        .toList();
+                case "Name (Z-A)" -> filtered.stream()
+                        .sorted(java.util.Comparator.comparing(Product::getProductName).reversed())
+                        .toList();
+                case "Price (Low-High)" -> filtered.stream()
+                        .sorted(java.util.Comparator.comparing(Product::getPrice))
+                        .toList();
+                case "Price (High-Low)" -> filtered.stream()
+                        .sorted(java.util.Comparator.comparing(Product::getPrice).reversed())
+                        .toList();
+                case "Stock (Low-High)" -> filtered.stream()
+                        .sorted(java.util.Comparator.comparingInt(Product::getQuantity))
+                        .toList();
+                case "Stock (High-Low)" -> filtered.stream()
+                        .sorted(java.util.Comparator.comparingInt(Product::getQuantity).reversed())
+                        .toList();
+                default -> filtered;
+            };
+        }
+        
+        table.setItems(FXCollections.observableArrayList(filtered));
     }
     
     private TableView<Product> createProductTable() {
