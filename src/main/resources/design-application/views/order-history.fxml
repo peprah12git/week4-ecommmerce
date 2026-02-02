@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.controllers.OrderHistoryController"
+      prefHeight="750.0" prefWidth="1180.0" spacing="15">
+
+    <padding>
+        <Insets top="15" left="15" right="15" bottom="15" />
+    </padding>
+
+    <HBox spacing="10" alignment="CENTER_LEFT">
+        <Label text="Order History" style="-fx-font-size: 20; -fx-font-weight: bold;" />
+        <Region HBox.hgrow="ALWAYS" />
+        <ComboBox fx:id="statusFilter" promptText="Filter by Status" prefWidth="150" />
+        <Button text="🔄 Refresh" style="-fx-font-size: 12; -fx-padding: 8;" onAction="#refreshOrders" />
+        <Button text="← Back" style="-fx-font-size: 12; -fx-padding: 8;" onAction="#backToProducts" />
+    </HBox>
+
+    <TableView fx:id="ordersTable" prefHeight="600" VBox.vgrow="ALWAYS">
+        <columns>
+            <TableColumn text="Order ID" prefWidth="80" fx:id="orderIdColumn" />
+            <TableColumn text="Date" prefWidth="150" fx:id="dateColumn" />
+            <TableColumn text="Status" prefWidth="100" fx:id="statusColumn" />
+            <TableColumn text="Total Amount" prefWidth="120" fx:id="totalColumn" />
+            <TableColumn text="Items" prefWidth="100" fx:id="itemsColumn" />
+            <TableColumn text="Action" prefWidth="100" fx:id="actionColumn" />
+        </columns>
+    </TableView>
+
+    <Label fx:id="emptyLabel" text="No orders found" style="-fx-text-alignment: center; -fx-font-size: 14;" />
+
+</VBox>

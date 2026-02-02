@@ -70,8 +70,7 @@ public class UserDAO {
     Java sends the sql query to the database to fetch a user record where the email matches the provided email parameter.
      If a matching record is found, it extracts the user details from the ResultSet and returns a User.
      this is done by prepared statement to prevent SQL injection attacks.
-     
-    
+
     */
     public User getUserByEmail(String email) {
         String sql = "SELECT * FROM Users WHERE email = ?";

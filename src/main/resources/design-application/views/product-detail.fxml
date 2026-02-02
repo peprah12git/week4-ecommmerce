@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.ecommerce.controllers.ProductDetailController"
+      prefHeight="750.0" prefWidth="1180.0" spacing="15"
+      stylesheets="@styles/client.css">
+
+    <padding>
+        <Insets top="15" left="15" right="15" bottom="15" />
+    </padding>
+
+    <Button text="← Back to Products" style="-fx-font-size: 12;" onAction="#handleBackToProducts" />
+
+    <HBox spacing="30">
+        <!-- Product Details Section -->
+        <VBox prefWidth="650" spacing="15">
+            <Label fx:id="productNameLabel" text="Product Name" style="-fx-font-size: 24; -fx-font-weight: bold;" />
+            
+            <HBox spacing="15">
+                <Label fx:id="productPriceLabel" text="0.00" style="-fx-font-size: 28; -fx-font-weight: bold; -fx-text-fill: #27ae60;" />
+                <Label fx:id="avgRatingLabel" text="⭐ 0.0 / 5.0" style="-fx-font-size: 14; -fx-text-fill: #f39c12;" />
+            </HBox>
+
+            <Separator />
+            
+            <Label text="Product Description" style="-fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" />
+            <Label fx:id="productDescLabel" text="Product description..." wrapText="true" 
+                   prefWidth="600" minHeight="60"
+                   style="-fx-font-size: 14; -fx-text-fill: #555; -fx-padding: 10; -fx-background-color: #f9f9f9; -fx-background-radius: 5;" />
+
+            <Separator />
+
+            <Label fx:id="productStockLabel" text="In Stock: 0" style="-fx-font-size: 13; -fx-text-fill: #27ae60; -fx-font-weight: bold;" />
+
+            <Separator />
+
+            <HBox spacing="15">
+                <Label text="Quantity:" style="-fx-font-size: 14; -fx-font-weight: bold;" />
+                <Spinner fx:id="quantitySpinner" prefWidth="100" editable="true" />
+                <Button fx:id="addToCartButton" text="Add to Cart" style="-fx-font-size: 14; -fx-padding: 10 20; -fx-font-weight: bold;" 
+                        onAction="#handleAddToCart" />
+            </HBox>
+        </VBox>
+
+        <!-- Reviews Section -->
+        <VBox prefWidth="480" spacing="15" style="-fx-border-color: #ddd; -fx-padding: 15; -fx-border-radius: 5;">
+            <Label text="Customer Reviews" style="-fx-font-size: 18; -fx-font-weight: bold;" />
+            
+            <ScrollPane prefHeight="350" fitToWidth="true">
+                <VBox fx:id="reviewsContainer" spacing="10" />
+            </ScrollPane>
+
+            <Separator />
+
+            <Label text="Write a Review" style="-fx-font-size: 14; -fx-font-weight: bold;" />
+            
+            <HBox spacing="10">
+                <Label text="Rating:" style="-fx-font-size: 12;" />
+                <Spinner fx:id="ratingSpinner" prefWidth="80" editable="false">
+                    <valueFactory>
+                        <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="5" initialValue="5" />
+                    </valueFactory>
+                </Spinner>
+                <Label text="⭐" style="-fx-font-size: 16;" />
+            </HBox>
+
+            <TextArea fx:id="reviewTextArea" promptText="Share your experience with this product..." 
+                      prefRowCount="3" wrapText="true" />
+
+            <Button fx:id="submitReviewButton" text="Submit Review" style="-fx-font-size: 12; -fx-padding: 8;" 
+                    onAction="#handleSubmitReview" />
+        </VBox>
+    </HBox>
+
+</VBox>
